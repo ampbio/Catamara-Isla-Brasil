@@ -18,6 +18,9 @@
 <meta property="og:description" content="Natureza, gastronomia, experiência local e diversão em Florianópolis 🌴">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://ampbio.github.io/Catamara-Isla-Brasil/">
+<meta property="og:image" content="https://ampbio.github.io/Catamara-Isla-Brasil/imagens/thumb.jpg">
+<meta name="twitter:image" content="https://ampbio.github.io/Catamara-Isla-Brasil/imagens/thumb.jpg">
 
 <!-- ===== SEGURANÇA (site estático) ===== -->
 <meta http-equiv="Content-Security-Policy" content="
@@ -49,9 +52,7 @@
     --green-50:#F5FAF1;
     --teal-900:#0F3A47;
     --teal-700:#17495A;    /* azul-petróleo do barco */
-    --blue-500:#0077B6;    /* onda azul */
     --navy:#1F3557;        /* "ISLA BRASIL" */
-    --sky:#5B8DB8;         /* "CATAMARÃ" */
     --sun:#EBA52C;         /* sol */
     --white:#FFFFFF;
   }
@@ -167,7 +168,7 @@
     margin:0 auto 22px;
   }
   .wrap{ position:relative; z-index:1; width:100%; max-width:420px; }
-  body.modal-open .wrap{ display:none; }
+  body.modal-open .wrap{ visibility:hidden; }
 
   /* faixa acima do card: local (esquerda, sempre 1 linha) + bolinhas de idioma (direita) */
   .topbar{
@@ -269,7 +270,7 @@
   .social-circle:focus-visible{ outline:3px solid var(--sun); outline-offset:3px; }
   @media (hover:hover) and (pointer:fine){ .social-circle:hover{ transform:translateY(-2px); box-shadow:0 6px 0 var(--green-600); } }
   @media (prefers-reduced-motion: no-preference){
-    .social-circle{ animation:fade-up .55s cubic-bezier(.2,.8,.2,1) both; }
+    .social-circle{ animation:fade-up .55s cubic-bezier(.2,.8,.2,1) backwards; }
     .social-circle:nth-child(2){ animation-delay:.06s; }
   }
 
@@ -285,7 +286,6 @@
   @media (hover:hover) and (pointer:fine){ .site-footer-line.dev a:hover{ text-decoration:underline; } }
 
   /* ===== POPUP: NOSSO ROTEIRO ===== */
-  body.modal-open .card{ display:none; }
   .rt-overlay{
     display:none;
     position:fixed;
@@ -317,7 +317,7 @@
   .rt-overlay.open .rt-panel{ transform:scale(1); opacity:1; }
   .rt-header{
     display:flex; align-items:flex-start; justify-content:space-between;
-    padding:22px 22px 6px; position:sticky; top:0; background:var(--white); z-index:1;
+    padding:22px 22px 14px; position:sticky; top:0; background:var(--white); z-index:1;
   }
   .rt-eyebrow{
     font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
@@ -332,26 +332,6 @@
   }
   .rt-close:focus-visible{ outline:3px solid var(--sun); outline-offset:2px; }
   @media (hover:hover) and (pointer:fine){ .rt-close:hover{ background:var(--green-300); } }
-  .rt-sub{ font-size:12.5px; color:#4A6670; padding:0 22px 14px; line-height:1.5; }
-
-  .rt-steps{ list-style:none; margin:0; padding:2px 22px 8px; }
-  .rt-step{ position:relative; display:flex; gap:14px; padding-bottom:18px; }
-  .rt-step:last-child{ padding-bottom:6px; }
-  .rt-step::before{
-    content:""; position:absolute; left:15px; top:34px; bottom:0; width:2px;
-    background:var(--green-300);
-  }
-  .rt-step:last-child::before{ display:none; }
-  .rt-dot{
-    width:32px; height:32px; border-radius:50%; flex-shrink:0;
-    background:var(--green-500); color:var(--teal-900);
-    font-weight:800; font-size:14px;
-    display:flex; align-items:center; justify-content:center;
-  }
-  .rt-step-text{ text-align:left; padding-top:3px; }
-  .rt-step-title{ font-size:14.5px; font-weight:700; color:var(--teal-700); margin-bottom:2px; }
-  .rt-step-desc{ font-size:12.5px; color:#4A6670; line-height:1.5; font-weight:500; }
-
   .rt-cta{ padding:6px 18px 22px; }
   .rt-cta .link-btn{ animation:none; }
 
@@ -383,7 +363,7 @@
      sempre cabe inteira (sem rolar) no PC e no celular. */
   #roteiroPanel{
     --rt-gutter:22px;
-    --rt-chrome:260px; /* altura de cabeçalho + frase + botão + margens */
+    --rt-chrome:228px; /* altura de cabeçalho + botão + margens */
     width:min(100%, calc((100vh - var(--rt-chrome)) * .7071 + 2 * var(--rt-gutter)));
     width:min(100%, calc((100dvh - var(--rt-chrome)) * .7071 + 2 * var(--rt-gutter)));
     min-width:min(100%, 300px);
@@ -392,14 +372,13 @@
     max-height:calc(100dvh - 20px);
   }
   #roteiroPanel .rt-header{ padding-left:var(--rt-gutter); padding-right:var(--rt-gutter); }
-  #roteiroPanel .rt-sub{ padding-left:var(--rt-gutter); padding-right:var(--rt-gutter); }
   #roteiroPanel .rt-slider{ margin:0 var(--rt-gutter) 14px; aspect-ratio:210 / 297; }
   #roteiroPanel .rt-track{ position:absolute; inset:0; }
   #roteiroPanel .rt-slide{ height:100%; }
   #roteiroPanel .rt-slide img{ width:100%; height:100%; object-fit:contain; }
   @media (max-width:480px){
     .rt-overlay{ padding:10px; }
-    #roteiroPanel{ --rt-gutter:12px; --rt-chrome:240px; }
+    #roteiroPanel{ --rt-gutter:12px; --rt-chrome:208px; }
     #roteiroPanel .rt-header{ padding-top:16px; }
     #roteiroPanel .rt-cta{ padding:4px 12px 16px; }
   }
@@ -412,17 +391,15 @@
   @media (prefers-reduced-motion: no-preference){
     body::before{ animation:drift-a 14s ease-in-out infinite; }
     body::after{ animation:drift-b 16s ease-in-out infinite; }
-    .card{ animation:card-in .7s cubic-bezier(.2,.8,.2,1) both; }
+    .card{ animation:card-in .7s cubic-bezier(.2,.8,.2,1) backwards; }
     .logo-badge{ animation:float 5s ease-in-out infinite; }
-    .headline{ animation:fade-up .6s .15s cubic-bezier(.2,.8,.2,1) both; }
-    .tagline{ animation:fade-up .6s .2s cubic-bezier(.2,.8,.2,1) both; }
-    .place{ animation:fade-up .6s .25s cubic-bezier(.2,.8,.2,1) both; }
-    .link-btn{ animation:fade-up .55s cubic-bezier(.2,.8,.2,1) both; }
-    .link-btn:nth-child(1){ animation-delay:.32s; }
-    .link-btn:nth-child(2){ animation-delay:.38s; }
-    .link-btn:nth-child(3){ animation-delay:.44s; }
-    .link-btn:nth-child(4){ animation-delay:.50s; }
-    .link-btn:nth-child(5){ animation-delay:.56s; }
+    .headline{ animation:fade-up .6s .15s cubic-bezier(.2,.8,.2,1) backwards; }
+    .tagline{ animation:fade-up .6s .2s cubic-bezier(.2,.8,.2,1) backwards; }
+    .place{ animation:fade-up .6s .25s cubic-bezier(.2,.8,.2,1) backwards; }
+    .link-btn{ animation:fade-up .55s cubic-bezier(.2,.8,.2,1) backwards; }
+    .link-btn:nth-child(2){ animation-delay:.32s; }
+    .link-btn:nth-child(3){ animation-delay:.38s; }
+    .link-btn:nth-child(4){ animation-delay:.44s; }
   }
   @keyframes drift-a{
     0%,100%{ transform:translate(0,0) scale(1); }
@@ -465,8 +442,8 @@
   <div class="topbar">
     <div class="place" id="place">📍 Ponta do Pitoco · Lagoa da Conceição, Florianópolis</div>
     <div class="lang" role="group" aria-label="Idioma">
-      <button type="button" class="lang-btn" aria-pressed="true" aria-label="Português">PT</button>
-      <button type="button" class="lang-btn" aria-pressed="false" aria-label="Español">ES</button>
+      <button type="button" class="lang-btn" aria-pressed="true" aria-label="Português" data-lang="pt">PT</button>
+      <button type="button" class="lang-btn" aria-pressed="false" aria-label="Español" data-lang="es">ES</button>
     </div>
   </div>
 
@@ -482,8 +459,8 @@
     <img class="logo" src="imagens/logo.png" width="230" height="230" alt="Catamarã Isla Brasil">
   </div>
 
-  <h1 class="headline">Passeios pela Costa da Lagoa</h1>
-  <p class="tagline">Natureza • Gastronomia • Experiência local • Diversão 🌴</p>
+  <h1 class="headline" data-i18n="headline">Passeios pela Costa da Lagoa</h1>
+  <p class="tagline" data-i18n="tagline">Natureza • Gastronomia • Experiência local • Diversão 🌴</p>
   <div class="links">
 
     <!-- REDES SOCIAIS (2 botões lado a lado) -->
@@ -497,28 +474,28 @@
     </div>
 
     <!-- 1. AGENDE (WhatsApp) -->
-    <a class="link-btn primary" href="https://api.whatsapp.com/send?phone=554891579274&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20passeio%20de%20catamar%C3%A3." target="_blank" rel="noopener noreferrer">
+    <a class="link-btn primary" href="https://api.whatsapp.com/send?phone=554891579274&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20passeio%20de%20catamar%C3%A3." data-wa target="_blank" rel="noopener noreferrer">
       <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      Agende seu passeio aqui
+      <span data-i18n="book">Agende seu passeio aqui</span>
     </a>
 
     <!-- 2. NOSSO ROTEIRO (abre popup) -->
     <button type="button" class="link-btn secondary" aria-haspopup="dialog" aria-controls="roteiroOverlay" onclick="openRoteiro()">
       <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
-      Nosso Roteiro
+      <span data-i18n="route">Nosso Roteiro</span>
     </button>
 
     <!-- 5. LOCALIZAÇÃO: abre direto no Google Maps -->
     <a class="link-btn outline" href="https://www.google.com/maps/search/?api=1&amp;query=Ponta+do+Pitoco+R.+Orlando+Carioni+258+Lagoa+da+Concei%C3%A7%C3%A3o+Florian%C3%B3polis" target="_blank" rel="noopener noreferrer">
       <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      Localização
+      <span data-i18n="location">Localização</span>
     </a>
 
     <!-- MINIMAPA (abaixo do botão Localização).
       Se o pino não cair no lugar certo, troque o texto do ?q= aqui e o query= do botão acima
       (ou use coordenadas, ex.: ?q=-27.6000,-48.4600). -->
     <div class="loc-map">
-      <iframe title="Mapa: Ponta do Pitoco, Lagoa da Conceição"
+      <iframe id="locMap" title="Mapa: Ponta do Pitoco, Lagoa da Conceição"
         src="https://www.google.com/maps?q=Ponta+do+Pitoco,+R.+Orlando+Carioni+258,+Lagoa+da+Concei%C3%A7%C3%A3o,+Florian%C3%B3polis&amp;z=16&amp;hl=pt-BR&amp;output=embed"
         loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
     </div>
@@ -526,48 +503,41 @@
   </div>
 
   <footer class="site-footer">
-    <div class="site-footer-line">Todos os direitos reservados a Catamarã Isla Brasil</div>
-    <div class="site-footer-line dev">Website desenvolvido por <a href="https://amplifying.com.br/servicos" target="_blank" rel="noopener noreferrer">AMPLIFYING</a></div>
+    <div class="site-footer-line" data-i18n="rights">Todos os direitos reservados a Catamarã Isla Brasil</div>
+    <div class="site-footer-line dev"><span data-i18n="devby">Website desenvolvido por</span> <a href="https://amplifying.com.br/servicos" target="_blank" rel="noopener noreferrer">AMPLIFYING</a></div>
   </footer>
 
 </div>
 
 </div>
 
-<!-- POPUP: NOSSO ROTEIRO
-  ⚠️ CONTEÚDO PROVISÓRIO: os títulos e textos das etapas abaixo foram escritos
-  a partir da bio do Instagram (natureza, gastronomia, experiência local,
-  diversão, saída da Ponta do Pitoco). Confirmar/ajustar com o cliente:
-  paradas reais, ordem, duração, horários e valores. Para adicionar uma etapa,
-  copie um <li class="rt-step"> inteiro. -->
+<!-- POPUP: NOSSO ROTEIRO (slide de fotos: imagens/roteiro1.png e roteiro2.png) -->
 <div id="roteiroOverlay" class="rt-overlay" onclick="closeRoteiro(event)">
   <div id="roteiroPanel" class="rt-panel" role="dialog" aria-modal="true" aria-labelledby="roteiroTitle" onclick="event.stopPropagation()">
 
     <div class="rt-header">
       <div>
         <div class="rt-eyebrow">Catamarã Isla Brasil</div>
-        <div class="rt-title" id="roteiroTitle">Nosso Roteiro</div>
+        <div class="rt-title" id="roteiroTitle" data-i18n="route">Nosso Roteiro</div>
       </div>
-      <button type="button" class="rt-close" id="roteiroClose" aria-label="Fechar" onclick="closeRoteiro()">×</button>
+      <button type="button" class="rt-close" id="roteiroClose" aria-label="Fechar" data-i18n-aria="close" onclick="closeRoteiro()">×</button>
     </div>
 
-    <div class="rt-sub">Um passeio pela Costa da Lagoa, saindo da Ponta do Pitoco.</div>
-
     <!-- SLIDE: imagens/roteiro1.png e imagens/roteiro2.png -->
-    <div class="rt-slider" role="region" aria-roledescription="carrossel" aria-label="Fotos do roteiro">
+    <div class="rt-slider" role="region" aria-roledescription="carrossel" aria-label="Fotos do roteiro" data-i18n-aria="photos">
       <div class="rt-track" id="rtTrack">
-        <div class="rt-slide"><img src="imagens/roteiro1.png" alt="Roteiro Catamarã Isla Brasil – foto 1" loading="lazy" decoding="async"></div>
-        <div class="rt-slide"><img src="imagens/roteiro2.png" alt="Roteiro Catamarã Isla Brasil – foto 2" loading="lazy" decoding="async"></div>
+        <div class="rt-slide"><img src="imagens/roteiro1.png" alt="Roteiro Catamarã Isla Brasil – foto 1" data-i18n-alt="alt1" loading="lazy" decoding="async"></div>
+        <div class="rt-slide"><img src="imagens/roteiro2.png" alt="Roteiro Catamarã Isla Brasil – foto 2" data-i18n-alt="alt2" loading="lazy" decoding="async"></div>
       </div>
-      <button type="button" class="rt-arrow prev" aria-label="Foto anterior" onclick="rtSlide(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-      <button type="button" class="rt-arrow next" aria-label="Próxima foto" onclick="rtSlide(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+      <button type="button" class="rt-arrow prev" aria-label="Foto anterior" data-i18n-aria="prev" onclick="rtSlide(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button type="button" class="rt-arrow next" aria-label="Próxima foto" data-i18n-aria="next" onclick="rtSlide(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
       <div class="rt-dots" id="rtDots" aria-hidden="true"><span class="active"></span><span></span></div>
     </div>
 
     <div class="rt-cta">
-      <a class="link-btn primary" href="https://api.whatsapp.com/send?phone=554891579274&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20passeio%20de%20catamar%C3%A3." target="_blank" rel="noopener noreferrer">
+      <a class="link-btn primary" href="https://api.whatsapp.com/send?phone=554891579274&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20passeio%20de%20catamar%C3%A3." data-wa target="_blank" rel="noopener noreferrer">
         <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        Agendar este passeio
+        <span data-i18n="bookThis">Agendar este passeio</span>
       </a>
     </div>
 
@@ -589,18 +559,13 @@
     window.scrollTo(0, scrollLockY);
   }
 
-  // Controle genérico dos popups (Roteiro e Localização)
+  // Controle do popup do Roteiro
   let modalOpener = null;
   let openModalId = null;
   function openModal(id){
     const overlay = document.getElementById(id);
     modalOpener = document.activeElement;
     openModalId = id;
-    // carrega o mapa só na 1ª abertura
-    overlay.querySelectorAll('iframe[data-src]').forEach(f => {
-      f.src = f.dataset.src;
-      f.removeAttribute('data-src');
-    });
     overlay.style.display = 'flex';
     lockBodyScroll();
     document.body.classList.add('modal-open');
@@ -661,6 +626,74 @@
   function openRoteiro(){ openModal('roteiroOverlay'); }
   function closeRoteiro(e){ closeModal('roteiroOverlay', e); }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // ===== IDIOMA (PT / ES) =====
+  const I18N = {
+    pt: {
+      title: 'Catamarã Isla Brasil',
+      headline: 'Passeios pela Costa da Lagoa',
+      tagline: 'Natureza • Gastronomia • Experiência local • Diversão 🌴',
+      book: 'Agende seu passeio aqui',
+      route: 'Nosso Roteiro',
+      location: 'Localização',
+      rights: 'Todos os direitos reservados a Catamarã Isla Brasil',
+      devby: 'Website desenvolvido por',
+      bookThis: 'Agendar este passeio',
+      close: 'Fechar', prev: 'Foto anterior', next: 'Próxima foto',
+      photos: 'Fotos do roteiro',
+      alt1: 'Roteiro Catamarã Isla Brasil – foto 1',
+      alt2: 'Roteiro Catamarã Isla Brasil – foto 2',
+      wa: 'Olá! Gostaria de agendar um passeio de catamarã.',
+      mapHl: 'pt-BR'
+    },
+    es: {
+      title: 'Catamarã Isla Brasil',
+      headline: 'Paseos por la Costa da Lagoa',
+      tagline: 'Naturaleza • Gastronomía • Experiencia local • Diversión 🌴',
+      book: 'Reserva tu paseo aquí',
+      route: 'Nuestro Recorrido',
+      location: 'Ubicación',
+      rights: 'Todos los derechos reservados a Catamarã Isla Brasil',
+      devby: 'Sitio web desarrollado por',
+      bookThis: 'Reservar este paseo',
+      close: 'Cerrar', prev: 'Foto anterior', next: 'Foto siguiente',
+      photos: 'Fotos del recorrido',
+      alt1: 'Recorrido Catamarã Isla Brasil – foto 1',
+      alt2: 'Recorrido Catamarã Isla Brasil – foto 2',
+      wa: '¡Hola! Me gustaría reservar un paseo en catamarán.',
+      mapHl: 'es'
+    }
+  };
+  function setLang(lang, save){
+    const t = I18N[lang] || I18N.pt;
+    lang = I18N[lang] ? lang : 'pt';
+    document.documentElement.lang = (lang === 'es') ? 'es' : 'pt-BR';
+    document.title = t.title;
+    document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t[el.dataset.i18n]; });
+    document.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', t[el.dataset.i18nAria]); });
+    document.querySelectorAll('[data-i18n-alt]').forEach(el => { el.setAttribute('alt', t[el.dataset.i18nAlt]); });
+    document.querySelectorAll('a[data-wa]').forEach(a => {
+      a.href = 'https://api.whatsapp.com/send?phone=554891579274&text=' + encodeURIComponent(t.wa);
+    });
+    const m = document.getElementById('locMap');
+    if (m){
+      const cur = m.getAttribute('src') || '';
+      const next = cur.replace(/([?&]hl=)[^&]*/, '$1' + t.mapHl);
+      if (next !== cur){
+        m.setAttribute('src', next);
+      }
+    }
+    document.querySelectorAll('.lang-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+    if (save){ try { localStorage.setItem('lang', lang); } catch(e){} }
+  }
+  document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang, true)));
+  (function(){
+    let saved = null;
+    try { saved = localStorage.getItem('lang'); } catch(e){}
+    const auto = (navigator.language || '').toLowerCase().startsWith('es') ? 'es' : 'pt';
+    const lang = saved || auto;
+    if (lang !== 'pt') setLang(lang, false);
+  })();
 </script>
 
 </body>
