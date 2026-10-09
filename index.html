@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catamarã Isla Brasil</title>
+
+<!-- ===== FAVICON (colocar fav.png dentro de imagens/) ===== -->
+<link rel="icon" type="image/png" href="imagens/fav.png">
+<link rel="apple-touch-icon" href="imagens/fav.png">
+
+<!-- ===== OPEN GRAPH / TWITTER CARD — PARTE 4 =====
+  Os links absolutos (https://...) serão preenchidos quando o domínio existir.
+-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Catamarã Isla Brasil">
+<meta property="og:title" content="Catamarã Isla Brasil — Passeios pela Costa da Lagoa">
+<meta property="og:description" content="Natureza, gastronomia, experiência local e diversão em Florianópolis 🌴">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- ===== SEGURANÇA (site estático) ===== -->
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  base-uri 'self';
+  object-src 'none';
+  form-action 'none';
+  script-src 'self' 'unsafe-inline';
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  font-src 'self' https://fonts.gstatic.com;
+  img-src 'self' data: https:;
+  frame-src https://www.google.com;
+  connect-src 'self';
+">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    /* Paleta tirada da logo */
+    --green-500:#6BAF4E;   /* DOMINANTE */
+    --green-600:#478C54;   /* verde escuro da palmeira/onda */
+    --green-700:#3B7A3A;   /* sombra dos botões verdes */
+    --green-300:#96BE6B;   /* verde claro da onda */
+    --green-100:#E8F3DF;
+    --green-50:#F5FAF1;
+    --teal-900:#0F3A47;
+    --teal-700:#17495A;    /* azul-petróleo do barco */
+    --blue-500:#0077B6;    /* onda azul */
+    --navy:#1F3557;        /* "ISLA BRASIL" */
+    --sky:#5B8DB8;         /* "CATAMARÃ" */
+    --sun:#EBA52C;         /* sol */
+    --white:#FFFFFF;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    font-family:'Montserrat',sans-serif;
+    background:var(--green-500);
+    min-height:100vh;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:32px 16px 64px;
+    position:relative;
+    overflow-x:hidden;
+    color:var(--navy);
+  }
+
+  /* manchas orgânicas ao fundo */
+  body::before{
+    content:"";
+    position:fixed;
+    top:-130px; left:-150px;
+    width:360px; height:360px;
+    background:var(--green-300);
+    border-radius:42% 58% 65% 35% / 45% 40% 60% 55%;
+    opacity:.6;
+    z-index:0;
+  }
+  body::after{
+    content:"";
+    position:fixed;
+    bottom:-170px; right:-150px;
+    width:400px; height:400px;
+    background:var(--teal-700);
+    border-radius:60% 40% 35% 65% / 55% 60% 40% 45%;
+    opacity:.35;
+    z-index:0;
+  }
+
+  .card{
+    position:relative;
+    z-index:1;
+    width:100%;
+    max-width:420px;
+    background:var(--white);
+    border-radius:32px;
+    --pad-t:30px; --pad-x:24px; --logo:120px;
+    padding:var(--pad-t) var(--pad-x) 28px;
+    text-align:center;
+    box-shadow:0 20px 50px rgba(15,58,71,.30);
+  }
+
+  /* ===== HERO: vídeo de fundo ponta a ponta + logo centralizada ===== */
+  .hero{
+    position:relative;
+    margin:calc(var(--pad-t) * -1) calc(var(--pad-x) * -1) 0;
+    height:250px;
+    border-radius:32px 32px 0 0;
+    overflow:hidden;
+    background:var(--teal-700);
+  }
+  /* mesmo enquadramento do desktop em qualquer tela: o vídeo sempre tem o tamanho
+     do banner no desktop (420x250), centralizado; em telas menores só as laterais são cortadas */
+  .hero-video{
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:420px;
+    min-width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  /* logo centralizada na borda do vídeo: ~35% sobre o vídeo, ~65% no branco */
+  .logo-badge{
+    position:relative;
+    z-index:1;
+    width:var(--logo);
+    height:var(--logo);
+    margin:calc(var(--logo) * -.35) auto 8px;
+    background:var(--white);
+    border:4px solid var(--green-500);
+    border-radius:50%;
+    box-shadow:0 6px 16px rgba(15,58,71,.18);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .logo{
+    display:block;
+    width:84%;
+    height:84%;
+    object-fit:contain;
+  }
+
+  .headline{
+    font-weight:800;
+    font-size:20px;
+    line-height:1.25;
+    color:var(--teal-700);
+    margin:0 0 8px;
+  }
+  .tagline{
+    font-size:13.5px;
+    line-height:1.55;
+    font-weight:500;
+    color:#4A6670;
+    max-width:320px;
+    margin:0 auto 22px;
+  }
+  .wrap{ position:relative; z-index:1; width:100%; max-width:420px; }
+  body.modal-open .wrap{ display:none; }
+
+  /* faixa acima do card: local (esquerda, sempre 1 linha) + bolinhas de idioma (direita) */
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin-bottom:14px;
+  }
+  .place{
+    flex:0 1 auto;
+    min-width:0;
+    white-space:nowrap;
+    overflow:hidden;
+    background:rgba(255,255,255,.95);
+    color:var(--teal-700);
+    border-radius:999px;
+    padding:7px 12px;
+    font-size:12px;           /* o JS reduz sozinho até caber em 1 linha */
+    font-weight:600;
+    line-height:1.3;
+    box-shadow:0 2px 8px rgba(15,58,71,.18);
+  }
+  .lang{ display:flex; gap:6px; flex-shrink:0; }
+  .lang-btn{
+    width:32px; height:32px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    padding:0; cursor:pointer;
+    font-family:'Montserrat',sans-serif; font-size:11px; font-weight:800; letter-spacing:.3px;
+    background:rgba(255,255,255,.95); color:var(--teal-700);
+    border:2px solid var(--green-600);
+    box-shadow:0 2px 8px rgba(15,58,71,.18);
+  }
+  .lang-btn[aria-pressed="true"]{ background:var(--green-600); color:#fff; }
+  .lang-btn:focus-visible{ outline:3px solid var(--sun); outline-offset:2px; }
+
+  .links{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-bottom:26px;
+  }
+
+  .link-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    width:100%;
+    padding:16px 18px;
+    border-radius:18px;
+    font-family:'Montserrat',sans-serif;
+    font-weight:700;
+    font-size:15px;
+    text-decoration:none;
+    border:none;
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease, filter .15s ease;
+  }
+  .link-btn:active{ transform:translateY(0) scale(.98); }
+  .link-btn:focus-visible{ outline:3px solid var(--sun); outline-offset:3px; }
+  @media (hover:hover) and (pointer:fine){ .link-btn:hover{ transform:translateY(-2px); } }
+
+  .link-btn.primary{
+    background:var(--green-500);
+    color:var(--teal-900);
+    box-shadow:0 6px 0 var(--green-700);
+  }
+  @media (hover:hover) and (pointer:fine){ .link-btn.primary:hover{ box-shadow:0 8px 0 var(--green-700); filter:brightness(1.05); } }
+
+  .link-btn.secondary{
+    background:var(--teal-700);
+    color:#fff;
+    box-shadow:0 6px 0 var(--teal-900);
+  }
+  @media (hover:hover) and (pointer:fine){ .link-btn.secondary:hover{ box-shadow:0 8px 0 var(--teal-900); } }
+
+  .link-btn.outline{
+    background:var(--green-50);
+    color:var(--teal-700);
+    border:2.5px solid var(--green-500);
+    box-shadow:0 6px 0 var(--green-600);
+  }
+  @media (hover:hover) and (pointer:fine){ .link-btn.outline:hover{ box-shadow:0 8px 0 var(--green-600); } }
+
+  .icon-svg{ width:22px; height:22px; flex-shrink:0; }
+
+  .social-row{ display:flex; justify-content:center; gap:14px; }
+  .social-circle{
+    width:40px; height:40px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--green-50); color:var(--teal-700);
+    border:2.5px solid var(--green-500);
+    box-shadow:0 4px 0 var(--green-600);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .social-circle svg{ width:19px; height:19px; }
+  .social-circle:active{ transform:translateY(0) scale(.96); }
+  .social-circle:focus-visible{ outline:3px solid var(--sun); outline-offset:3px; }
+  @media (hover:hover) and (pointer:fine){ .social-circle:hover{ transform:translateY(-2px); box-shadow:0 6px 0 var(--green-600); } }
+  @media (prefers-reduced-motion: no-preference){
+    .social-circle{ animation:fade-up .55s cubic-bezier(.2,.8,.2,1) both; }
+    .social-circle:nth-child(2){ animation-delay:.06s; }
+  }
+
+  .site-footer{ text-align:center; padding-top:6px; }
+  .site-footer-line{
+    font-size:11px;
+    color:#6E8790;
+    line-height:1.6;
+    letter-spacing:.2px;
+  }
+  .site-footer-line.dev{ margin-top:2px; }
+  .site-footer-line.dev a{ color:var(--green-600); font-weight:700; text-decoration:none; }
+  @media (hover:hover) and (pointer:fine){ .site-footer-line.dev a:hover{ text-decoration:underline; } }
+
+  /* ===== POPUP: NOSSO ROTEIRO ===== */
+  body.modal-open .card{ display:none; }
+  .rt-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(15,58,71,.45);
+    backdrop-filter:blur(14px) saturate(1.3);
+    -webkit-backdrop-filter:blur(14px) saturate(1.3);
+  }
+  .rt-panel{
+    background:var(--white);
+    border-radius:26px;
+    width:100%;
+    max-width:420px;
+    max-height:90vh;
+    max-height:90dvh;
+    display:flex;
+    flex-direction:column;
+    overflow-x:hidden;
+    overflow-y:auto;
+    transform:scale(.92);
+    opacity:0;
+    transition:transform .3s cubic-bezier(.32,.72,0,1), opacity .3s ease;
+    box-shadow:0 20px 60px rgba(15,58,71,.4);
+  }
+  .rt-overlay.open .rt-panel{ transform:scale(1); opacity:1; }
+  .rt-header{
+    display:flex; align-items:flex-start; justify-content:space-between;
+    padding:22px 22px 6px; position:sticky; top:0; background:var(--white); z-index:1;
+  }
+  .rt-eyebrow{
+    font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+    color:var(--green-600); margin-bottom:2px;
+  }
+  .rt-title{ font-size:22px; font-weight:800; color:var(--teal-700); line-height:1.15; }
+  .rt-close{
+    background:var(--green-100); border:1.5px solid var(--green-300); color:var(--teal-700);
+    width:36px; height:36px; border-radius:50%; font-size:20px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; line-height:1; flex-shrink:0;
+    transition:background .15s ease;
+  }
+  .rt-close:focus-visible{ outline:3px solid var(--sun); outline-offset:2px; }
+  @media (hover:hover) and (pointer:fine){ .rt-close:hover{ background:var(--green-300); } }
+  .rt-sub{ font-size:12.5px; color:#4A6670; padding:0 22px 14px; line-height:1.5; }
+
+  .rt-steps{ list-style:none; margin:0; padding:2px 22px 8px; }
+  .rt-step{ position:relative; display:flex; gap:14px; padding-bottom:18px; }
+  .rt-step:last-child{ padding-bottom:6px; }
+  .rt-step::before{
+    content:""; position:absolute; left:15px; top:34px; bottom:0; width:2px;
+    background:var(--green-300);
+  }
+  .rt-step:last-child::before{ display:none; }
+  .rt-dot{
+    width:32px; height:32px; border-radius:50%; flex-shrink:0;
+    background:var(--green-500); color:var(--teal-900);
+    font-weight:800; font-size:14px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .rt-step-text{ text-align:left; padding-top:3px; }
+  .rt-step-title{ font-size:14.5px; font-weight:700; color:var(--teal-700); margin-bottom:2px; }
+  .rt-step-desc{ font-size:12.5px; color:#4A6670; line-height:1.5; font-weight:500; }
+
+  .rt-cta{ padding:6px 18px 22px; }
+  .rt-cta .link-btn{ animation:none; }
+
+  /* ===== SLIDE DE IMAGENS DO ROTEIRO ===== */
+  .rt-slider{ position:relative; margin:0 22px 16px; border-radius:18px; overflow:hidden; background:var(--green-100); }
+  .rt-track{
+    display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
+    scrollbar-width:none; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain;
+  }
+  .rt-track::-webkit-scrollbar{ display:none; }
+  .rt-slide{ flex:0 0 100%; scroll-snap-align:center; }
+  .rt-slide img{ display:block; width:100%; height:auto; }
+  .rt-arrow{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:34px; height:34px; border-radius:50%; border:none; cursor:pointer;
+    background:rgba(255,255,255,.88); color:var(--teal-700);
+    display:flex; align-items:center; justify-content:center; padding:0;
+    box-shadow:0 2px 8px rgba(15,58,71,.25);
+  }
+  .rt-arrow svg{ width:18px; height:18px; }
+  .rt-arrow.prev{ left:8px; } .rt-arrow.next{ right:8px; }
+  .rt-arrow:focus-visible{ outline:3px solid var(--sun); outline-offset:2px; }
+  .rt-dots{ position:absolute; left:0; right:0; bottom:10px; display:flex; justify-content:center; gap:7px; }
+  .rt-dots span{ width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.6); box-shadow:0 0 0 1px rgba(15,58,71,.2); transition:background .2s, transform .2s; }
+  .rt-dots span.active{ background:#fff; transform:scale(1.25); }
+
+  /* ===== ROTEIRO: imagens A4 (210x297) inteiras na tela =====
+     A largura do painel é calculada pela altura da tela, então a imagem
+     sempre cabe inteira (sem rolar) no PC e no celular. */
+  #roteiroPanel{
+    --rt-gutter:22px;
+    --rt-chrome:260px; /* altura de cabeçalho + frase + botão + margens */
+    width:min(100%, calc((100vh - var(--rt-chrome)) * .7071 + 2 * var(--rt-gutter)));
+    width:min(100%, calc((100dvh - var(--rt-chrome)) * .7071 + 2 * var(--rt-gutter)));
+    min-width:min(100%, 300px);
+    max-width:680px;
+    max-height:calc(100vh - 20px);
+    max-height:calc(100dvh - 20px);
+  }
+  #roteiroPanel .rt-header{ padding-left:var(--rt-gutter); padding-right:var(--rt-gutter); }
+  #roteiroPanel .rt-sub{ padding-left:var(--rt-gutter); padding-right:var(--rt-gutter); }
+  #roteiroPanel .rt-slider{ margin:0 var(--rt-gutter) 14px; aspect-ratio:210 / 297; }
+  #roteiroPanel .rt-track{ position:absolute; inset:0; }
+  #roteiroPanel .rt-slide{ height:100%; }
+  #roteiroPanel .rt-slide img{ width:100%; height:100%; object-fit:contain; }
+  @media (max-width:480px){
+    .rt-overlay{ padding:10px; }
+    #roteiroPanel{ --rt-gutter:12px; --rt-chrome:240px; }
+    #roteiroPanel .rt-header{ padding-top:16px; }
+    #roteiroPanel .rt-cta{ padding:4px 12px 16px; }
+  }
+
+  /* ===== MINIMAPA (abaixo do botão Localização) ===== */
+  .loc-map{ border-radius:18px; overflow:hidden; background:var(--green-100); border:2.5px solid var(--green-500); box-shadow:0 6px 0 var(--green-600); aspect-ratio:4/3; margin-bottom:6px; }
+  .loc-map iframe{ display:block; width:100%; height:100%; border:0; }
+
+  /* animações (respeita quem desativa movimento) */
+  @media (prefers-reduced-motion: no-preference){
+    body::before{ animation:drift-a 14s ease-in-out infinite; }
+    body::after{ animation:drift-b 16s ease-in-out infinite; }
+    .card{ animation:card-in .7s cubic-bezier(.2,.8,.2,1) both; }
+    .logo-badge{ animation:float 5s ease-in-out infinite; }
+    .headline{ animation:fade-up .6s .15s cubic-bezier(.2,.8,.2,1) both; }
+    .tagline{ animation:fade-up .6s .2s cubic-bezier(.2,.8,.2,1) both; }
+    .place{ animation:fade-up .6s .25s cubic-bezier(.2,.8,.2,1) both; }
+    .link-btn{ animation:fade-up .55s cubic-bezier(.2,.8,.2,1) both; }
+    .link-btn:nth-child(1){ animation-delay:.32s; }
+    .link-btn:nth-child(2){ animation-delay:.38s; }
+    .link-btn:nth-child(3){ animation-delay:.44s; }
+    .link-btn:nth-child(4){ animation-delay:.50s; }
+    .link-btn:nth-child(5){ animation-delay:.56s; }
+  }
+  @keyframes drift-a{
+    0%,100%{ transform:translate(0,0) scale(1); }
+    50%{ transform:translate(24px,30px) scale(1.06); }
+  }
+  @keyframes drift-b{
+    0%,100%{ transform:translate(0,0) scale(1); }
+    50%{ transform:translate(-26px,-22px) scale(1.05); }
+  }
+  @keyframes card-in{
+    from{ opacity:0; transform:translateY(18px) scale(.98); }
+    to{ opacity:1; transform:translateY(0) scale(1); }
+  }
+  @keyframes fade-up{
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @keyframes float{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-5px); }
+  }
+
+  @media (max-width:480px){
+    .card{ --pad-t:24px; --pad-x:18px; padding-bottom:24px; }
+    .hero{ height:250px; }
+    .card{ --logo:110px; }
+  }
+  @media (max-width:340px){
+    .card{ --logo:96px; }
+    .card{ --pad-t:20px; --pad-x:14px; padding-bottom:20px; }
+    .link-btn{ font-size:14px; padding:14px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- FAIXA DE CIMA (fora do card): local + bolinhas de idioma (PT / ES) -->
+  <div class="topbar">
+    <div class="place" id="place">📍 Ponta do Pitoco · Lagoa da Conceição, Florianópolis</div>
+    <div class="lang" role="group" aria-label="Idioma">
+      <button type="button" class="lang-btn" aria-pressed="true" aria-label="Português">PT</button>
+      <button type="button" class="lang-btn" aria-pressed="false" aria-label="Español">ES</button>
+    </div>
+  </div>
+
+<div class="card">
+
+  <!-- HERO: videos/hero.mp4 de fundo + logo por cima -->
+  <div class="hero">
+    <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1">
+      <source src="videos/hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="logo-badge">
+    <img class="logo" src="imagens/logo.png" width="230" height="230" alt="Catamarã Isla Brasil">
+  </div>
+
+  <h1 class="headline">Passeios pela Costa da Lagoa</h1>
+  <p class="tagline">Natureza • Gastronomia • Experiência local • Diversão 🌴</p>
+  <div class="links">
+
+    <!-- REDES SOCIAIS (2 botões lado a lado) -->
+    <div class="social-row">
+      <a class="social-circle" href="https://www.instagram.com/islabrasilcatamaran/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a class="social-circle" href="https://www.tiktok.com/@isla.brasil" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+        <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg>
+      </a>
+    </div>
+
+    <!-- 1. AGENDE (WhatsApp) -->
+    <a class="link-btn primary" href="https://api.whatsapp.com/send?phone=554891579274&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20passeio%20de%20catamar%C3%A3." target="_blank" rel="noopener noreferrer">
+      <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Agende seu passeio aqui
+    </a>
+
+    <!-- 2. NOSSO ROTEIRO (abre popup) -->
+    <button type="button" class="link-btn secondary" aria-haspopup="dialog" aria-controls="roteiroOverlay" onclick="openRoteiro()">
+      <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+      Nosso Roteiro
+    </button>
+
+    <!-- 5. LOCALIZAÇÃO: abre direto no Google Maps -->
+    <a class="link-btn outline" href="https://www.google.com/maps/search/?api=1&amp;query=Ponta+do+Pitoco+R.+Orlando+Carioni+258+Lagoa+da+Concei%C3%A7%C3%A3o+Florian%C3%B3polis" target="_blank" rel="noopener noreferrer">
+      <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Localização
+    </a>
+
+    <!-- MINIMAPA (abaixo do botão Localização).
+      Se o pino não cair no lugar certo, troque o texto do ?q= aqui e o query= do botão acima
+      (ou use coordenadas, ex.: ?q=-27.6000,-48.4600). -->
+    <div class="loc-map">
+      <iframe title="Mapa: Ponta do Pitoco, Lagoa da Conceição"
+        src="https://www.google.com/maps?q=Ponta+do+Pitoco,+R.+Orlando+Carioni+258,+Lagoa+da+Concei%C3%A7%C3%A3o,+Florian%C3%B3polis&amp;z=16&amp;hl=pt-BR&amp;output=embed"
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    <div class="site-footer-line">Todos os direitos reservados a Catamarã Isla Brasil</div>
+    <div class="site-footer-line dev">Website desenvolvido por <a href="https://amplifying.com.br/servicos" target="_blank" rel="noopener noreferrer">AMPLIFYING</a></div>
+  </footer>
+
+</div>
+
+</div>
+
+<!-- POPUP: NOSSO ROTEIRO
+  ⚠️ CONTEÚDO PROVISÓRIO: os títulos e textos das etapas abaixo foram escritos
+  a partir da bio do Instagram (natureza, gastronomia, experiência local,
+  diversão, saída da Ponta do Pitoco). Confirmar/ajustar com o cliente:
+  paradas reais, ordem, duração, horários e valores. Para adicionar uma etapa,
+  copie um <li class="rt-step"> inteiro. -->
+<div id="roteiroOverlay" class="rt-overlay" onclick="closeRoteiro(event)">
+  <div id="roteiroPanel" class="rt-panel" role="dialog" aria-modal="true" aria-labelledby="roteiroTitle" onclick="event.stopPropagation()">
+
+    <div class="rt-header">
+      <div>
+        <div class="rt-eyebrow">Catamarã Isla Brasil</div>
+        <div class="rt-title" id="roteiroTitle">Nosso Roteiro</div>
+      </div>
+      <button type="button" class="rt-close" id="roteiroClose" aria-label="Fechar" onclick="closeRoteiro()">×</button>
+    </div>
+
+    <div class="rt-sub">Um passeio pela Costa da Lagoa, saindo da Ponta do Pitoco.</div>
+
+    <!-- SLIDE: imagens/roteiro1.png e imagens/roteiro2.png -->
+    <div class="rt-slider" role="region" aria-roledescription="carrossel" aria-label="Fotos do roteiro">
+      <div class="rt-track" id="rtTrack">
+        <div class="rt-slide"><img src="imagens/roteiro1.png" alt="Roteiro Catamarã Isla Brasil – foto 1" loading="lazy" decoding="async"></div>
+        <div class="rt-slide"><img src="imagens/roteiro2.png" alt="Roteiro Catamarã Isla Brasil – foto 2" loading="lazy" decoding="async"></div>
+      </div>
+      <button type="button" class="rt-arrow prev" aria-label="Foto anterior" onclick="rtSlide(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button type="button" class="rt-arrow next" aria-label="Próxima foto" onclick="rtSlide(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+      <div class="rt-dots" id="rtDots" aria-hidden="true"><span class="active"></span><span></span></div>
+    </div>
+
+    <div class="rt-cta">
+      <a class="link-btn primary" href="https://api.whatsapp.com/send?phone=554891579274&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20passeio%20de%20catamar%C3%A3." target="_blank" rel="noopener noreferrer">
+        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Agendar este passeio
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Trava o scroll do fundo (position:fixed segura o bounce do Safari iOS)
+  let scrollLockY = 0;
+  function lockBodyScroll(){
+    scrollLockY = window.scrollY || 0;
+    const s = document.body.style;
+    s.position = 'fixed'; s.top = (-scrollLockY) + 'px';
+    s.left = '0'; s.right = '0'; s.width = '100%'; s.overflow = 'hidden';
+  }
+  function unlockBodyScroll(){
+    const s = document.body.style;
+    s.position = ''; s.top = ''; s.left = ''; s.right = ''; s.width = ''; s.overflow = '';
+    window.scrollTo(0, scrollLockY);
+  }
+
+  // Controle genérico dos popups (Roteiro e Localização)
+  let modalOpener = null;
+  let openModalId = null;
+  function openModal(id){
+    const overlay = document.getElementById(id);
+    modalOpener = document.activeElement;
+    openModalId = id;
+    // carrega o mapa só na 1ª abertura
+    overlay.querySelectorAll('iframe[data-src]').forEach(f => {
+      f.src = f.dataset.src;
+      f.removeAttribute('data-src');
+    });
+    overlay.style.display = 'flex';
+    lockBodyScroll();
+    document.body.classList.add('modal-open');
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      overlay.classList.add('open');
+      const c = overlay.querySelector('.rt-close');
+      if (c) c.focus();
+    }));
+  }
+  function closeModal(id, e){
+    const overlay = document.getElementById(id || openModalId);
+    if (!overlay) return;
+    if (e && e.target && e.target !== overlay) return;
+    if (!overlay.classList.contains('open')) return;
+    overlay.classList.remove('open');
+    openModalId = null;
+    setTimeout(() => {
+      overlay.style.display = 'none';
+      document.body.classList.remove('modal-open');
+      unlockBodyScroll();
+      if (modalOpener && modalOpener.focus) modalOpener.focus();
+    }, 300);
+  }
+  // Texto do local: reduz a fonte até caber sempre em UMA linha
+  function fitPlace(){
+    const el = document.getElementById('place');
+    if (!el) return;
+    let size = 12;
+    el.style.fontSize = size + 'px';
+    while (el.scrollWidth > el.clientWidth && size > 7){
+      size -= 0.25;
+      el.style.fontSize = size + 'px';
+    }
+  }
+  window.addEventListener('resize', fitPlace);
+  window.addEventListener('load', fitPlace);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitPlace);
+  fitPlace();
+
+  // Vídeo do topo: respeita quem prefere menos movimento
+  (function(){
+    const v = document.getElementById('heroVideo');
+    if (v && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ v.removeAttribute('autoplay'); v.pause(); }
+  })();
+  // Slide de imagens do Roteiro
+  function rtSlide(dir){
+    const t = document.getElementById('rtTrack');
+    t.scrollBy({ left: dir * t.clientWidth, behavior: 'smooth' });
+  }
+  (function(){
+    const t = document.getElementById('rtTrack'), d = document.querySelectorAll('#rtDots span');
+    t.addEventListener('scroll', () => {
+      const i = Math.round(t.scrollLeft / t.clientWidth);
+      d.forEach((el, n) => el.classList.toggle('active', n === i));
+    }, { passive:true });
+  })();
+  // compatibilidade com o botão do Roteiro
+  function openRoteiro(){ openModal('roteiroOverlay'); }
+  function closeRoteiro(e){ closeModal('roteiroOverlay', e); }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+
+</body>
+</html>
